@@ -1,0 +1,287 @@
+// BOOTSTRAP
+@import "bootstrap/scss/bootstrap";
+
+// Bootstrap CSS Variables (Overrides)
+:root {
+  --bs-primary-rgb: 13, 110, 253;
+  --bs-secondary-rgb: 108, 117, 125;
+  --bs-font-sans-serif: 'Ubuntu', sans-serif;
+  --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas,
+    'Liberation Mono', 'Courier New', monospace;
+  --bs-body-font-family: var(--bs-font-sans-serif);
+  --bs-body-font-size: 1rem;
+  --bs-body-font-weight: 400;
+  --bs-body-line-height: 1.5;
+  --bs-body-color: #fff;
+  --bs-body-bg: #181818;
+}
+
+// FONTS
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap');
+
+// TOOLS
+
+// Mixins
+// 1. Breakpoints
+
+$breakpoints: (
+  'md':  ( min-width:  640px ),
+  'lg':  ( min-width: 1440px )
+) !default;
+
+@mixin respond-to($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media #{inspect(map-get($breakpoints, $breakpoint))} {
+      @content;
+    }
+  }
+  @else {
+    @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
+        + "Available breakpoints are: #{map-keys($breakpoints)}.";
+  }
+}
+
+// LAYOUT
+// General Layout with CSS Grid
+
+.Container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 70px 1fr 66px;
+  min-height: 100vh;
+
+  @include respond-to(md) {
+    grid-template-columns: 80px 1fr auto;
+    grid-template-rows: auto 1fr;
+  }
+}
+
+.Logo {
+  display: none;
+
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+  align-self: center;
+
+  padding: 1rem;
+
+  background-color: #1b1b1b;
+
+  @include respond-to(md) {
+    display: block;
+  }
+}
+
+.MainContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  grid-column: 1 / 2;
+  grid-row: 1 / 4;
+
+  @include respond-to(md) {
+    grid-column: 2 / 3;
+    grid-row: 1 / 3;
+  }
+
+  .Content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    flex-grow: 1 !important;
+    order: 2;
+
+    padding: .5rem .5rem 2rem;
+    width: 100%;
+    max-width: 860px;
+
+    @include respond-to(md) {
+      padding: calc(80px - 1.5rem) .5rem;
+    }
+  }
+
+  .MobileNav {
+    width: 100%;
+    order: 3;
+
+    &--On-Top {
+      order: 1;
+    }
+
+    @include respond-to(md) {
+      display: none;
+    }
+  }
+}
+
+.NavBar {
+  display: none;
+
+  grid-column: 1 / 2;
+  grid-row: 3 / 4;
+
+  @include respond-to(md) {
+    display: block;
+
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+  }
+}
+
+.Follow {
+  display: none;
+
+  @include respond-to(lg) {
+    display: block;
+    
+    grid-column: 3 / 4;
+    grid-row: 1 / 3;
+    background-color: #1b1b1b;
+    padding: 1rem;
+    min-width: 375px;
+  }
+}
+
+// COMPONENTS
+// 1. Navs
+.Nav {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  height: 100%;
+  
+  background-color: #1b1b1b;
+
+  @include respond-to(md) {
+    justify-content: flex-start;
+  }
+
+  &--Mobile {
+    flex-direction: row;
+  }
+
+  &__Link {
+    margin: 1rem 1rem 0;
+    color: #8a8a8f;
+    text-align: center;
+    text-decoration: none;
+
+    @include respond-to(md) {
+      margin: 1rem;
+    }
+
+    &:hover {
+      color: white;
+    }
+
+    &__Icon {
+      font-size: 1rem;
+    }
+
+    &__Title {
+      font-size: 0.75rem;
+      line-height: 1.125rem;
+    }
+
+    &--Active {
+      color: #fff;
+    }
+  }
+}
+
+// 2. Buttons
+.btn-outline {
+  background: black;
+  color: white;
+  border: 1px solid white;
+  // @extend .rounded-pill;
+
+  &:hover {
+    background: white;
+    color: black;
+    border: 1px solid white;
+  }
+  // For Mimic Hover Only
+  &.active {
+    background: white;
+    color: black;
+    border: 1px solid white;
+  }
+}
+.btn-contain {
+  background: white;
+  color: black;
+  border: 1px solid white;
+  // @extend .rounded-pill;
+  &:hover {
+    background: black;
+    color: white;
+    border: 1px solid white;
+  }
+  // For Mimic Hover Only
+  &.active{
+    background: black;
+    color: white;
+    border: 1px solid white;
+  }
+}
+
+// 3. Text Field
+input[type='text'] {
+  border: 3px solid rgba(255, 255, 255, 0.5);
+  padding: 1.25rem 1.125rem;
+  background: #181818;
+  color: white;
+  font-size: 14px;
+}
+.form-control:focus {
+  border: 3px solid #ff9b33;
+  background: #181818;
+  color: white;
+  box-shadow: none;
+}
+
+// 4. Tags List
+.Tags {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+
+  margin-bottom: 10px;
+
+  &__Image {
+    grid-column: 1 / 1;
+    grid-row: 1 / 1;
+    
+    width: 100%;
+    min-width: 150px;
+    min-height: 150px;
+
+    background: #fff;
+    border-radius: .725rem;
+
+    opacity: .06;
+
+    &--Loading {
+      background: currentColor;
+    }
+  }
+
+  &__Badge {
+    grid-column: 1 / 1;
+    grid-row: 1 / 1;
+    align-self: end;
+
+    margin-bottom: 0;
+    padding: 10px;
+    line-height: 0;
+
+    span {
+      max-width: calc(120px - 20px);
+    }
+  }
+}
