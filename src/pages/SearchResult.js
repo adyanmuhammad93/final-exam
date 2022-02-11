@@ -49,11 +49,6 @@ const SearchResult = () => {
 
   return (
     <>
-      {isVisible && (
-        <div className="position-fixed top-50">
-          <span className="spinner-border"></span>
-        </div>
-      )}
       <div className="Content">
         {/* Page Title */}
         <h2 className="w-100 p-3">
@@ -67,8 +62,7 @@ const SearchResult = () => {
 
         {/* Results List */}
         <div className="row row-cols-1 row-cols-xl-3 w-100 g-4 mb-4">
-          {
-          newArray &&
+          {newArray &&
             newArray.map((data, index) => {
               return (
                 <div className="col" key={index}>
@@ -85,7 +79,10 @@ const SearchResult = () => {
                 </div>
               );
             })
-          }
+            (
+              <span className="spinner-border"></span>
+            )
+            }
           {loading &&
             numbers.map((index) => {
               return (
