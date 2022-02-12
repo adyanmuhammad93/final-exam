@@ -37,7 +37,7 @@ const SearchResult = (props) => {
       setVisibility(entry.isIntersecting);
       setTimeout(() => {
         setLimit(limit + 1)
-        setNewLimit(limit + )
+        setNewLimit(limit + 2)
         setNewArray([...newArray, array[limit]]);
         console.log(array[limit]);
       }, 500);
