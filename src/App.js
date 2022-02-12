@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
 import './style.scss';
 import 'bootstrap/dist/js/bootstrap';
@@ -20,6 +20,23 @@ import Tags from './pages/Tags';
 import SearchResult from './pages/SearchResult';
 
 export default function App() {
+  // 
+  const [newArray, setNewArray] = useState([])
+
+  // API Connections
+  const apiURL = 'https://api.unsplash.com/search/collections?query';
+  const apiKey = 'U-rUir27xXKsXtMIFGZ0TcQ4DTFAsfUC14OdqJCArmw';
+
+  useEffect(() => {
+    setTimeout(() => {
+      fetch(`${apiURL}=snow&per_page=1&client_id=${apiKey}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setNewArray(data.results)
+        })
+    }, 1500);
+  }, []);
+  
   return (
     <BrowserRouter>
       <Container>
@@ -28,7 +45,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/tags" element={<Tags />} />
-            <Route path="/search/:query/:range" element={<SearchResult />} />
+            <Route path="/search/:query/:range" element={<SearchResult newArray={newArray} />} />
           </Routes>
         </MainContent>
         <NavBar>

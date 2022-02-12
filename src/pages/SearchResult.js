@@ -4,42 +4,45 @@ import { Link, useParams } from 'react-router-dom';
 // Intersection Observer API
 import useIntersectionObserver from '../hooks/useIntersectionObserver';
 
-const SearchResult = () => {
+const SearchResult = (props) => {
   // Search Params
   const { query, range } = useParams();
 
   // Infinite Scroll
-  var i = 0;
   const [array, setArray] = useState([]);
-  const [newArray, setNewArray] = useState([]);
+  const [newArray, setNewArray] = useState([props.newArray]);
+  const [limit, setLimit] = useState(0)
+  const [newLimit, setNewLimit] = useState(limit + 1)
 
-  useEffect(async () => {
-    setTimeout(async () => {
-      const resp = await fetch(
-        `https://api.unsplash.com/search/collections?query=${query}&per_page=${range}&client_id=U-rUir27xXKsXtMIFGZ0TcQ4DTFAsfUC14OdqJCArmw`
-      );
-      const json = await resp.json();
-      setLoading(false);
-      setArray(json.results);
-      console.log(json.results);
-    }, 3000);
+  // API Connections
+  const apiURL = 'https://api.unsplash.com/search/collections?query';
+  const apiKey = 'U-rUir27xXKsXtMIFGZ0TcQ4DTFAsfUC14OdqJCArmw';
+
+  useEffect(() => {
+    setTimeout(() => {
+      fetch(`${apiURL}=${query}&per_page=${range}&client_id=${apiKey}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setLoading(false);
+          setArray(data.results);
+          console.log(data.results);
+        });
+    }, 1500);
   }, []);
 
   const [isVisible, setVisibility] = useState(false);
   const { objectRef } = useIntersectionObserver((entries) => {
     const [entry] = entries;
-    while (i < array.length) {
-      if (entry.isIntersecting) {
-        setVisibility(entry.isIntersecting);
-        // setTimeout(() => {
-        //   setNewArray([...newArray, array[i]]);
-        //   console.log(array[i]);
-        //   i++;
-        // }, 500);
-      } else {
-        setVisibility(false);
-        setHasMore(false);
-      }
+    if (entry.isIntersecting && (limit < array.length)) {
+      setVisibility(entry.isIntersecting);
+      setTimeout(() => {
+        setLimit(limit + 1)
+        setNewLimit(limit + )
+        setNewArray([...newArray, array[limit]]);
+        console.log(array[limit]);
+      }, 500);
+    } else {
+      setVisibility(false);
     }
   });
 
@@ -49,6 +52,11 @@ const SearchResult = () => {
 
   return (
     <>
+      {isVisible && (
+        <div className="position-fixed top-50">
+          <span className="spinner-border"></span>
+        </div>
+      )}
       <div className="Content">
         {/* Page Title */}
         <h2 className="w-100 p-3">
@@ -62,8 +70,8 @@ const SearchResult = () => {
 
         {/* Results List */}
         <div className="row row-cols-1 row-cols-xl-3 w-100 g-4 mb-4">
-          {newArray &&
-            newArray.map((data, index) => {
+          {newArray.length > 1 &&
+            newArray.slice(1, newLimit).map((data, index) => {
               return (
                 <div className="col" key={index}>
                   <img
@@ -78,11 +86,7 @@ const SearchResult = () => {
                   </h6>
                 </div>
               );
-            })
-            (
-              <span className="spinner-border"></span>
-            )
-            }
+            })}
           {loading &&
             numbers.map((index) => {
               return (
