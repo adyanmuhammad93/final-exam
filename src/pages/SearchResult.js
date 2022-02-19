@@ -4,40 +4,62 @@ import { Link, useParams } from 'react-router-dom';
 // Intersection Observer API
 import useIntersectionObserver from '../hooks/useIntersectionObserver';
 
-const SearchResult = (props) => {
+const SearchResult = () => {
   // Search Params
   const { query, range } = useParams();
 
   // Infinite Scroll
   const [array, setArray] = useState([]);
-  const [newArray, setNewArray] = useState([props.newArray]);
-  const [limit, setLimit] = useState(0)
-  const [newLimit, setNewLimit] = useState(limit + 1)
+  const [newArray, setNewArray] = useState([
+    {
+      id: 'f76dcfa7-b9f3-489a-a372-8baf9c01abfd',
+      name: 'Emilie Cartwright',
+      username: 'Jaime_Bahringer',
+      avater: 'https://cdn.fakercloud.com/avatars/bu7921_128.jpg',
+      isFollowing: false,
+    },
+  ]);
+  const [limit, setLimit] = useState(0);
+  const [newLimit, setNewLimit] = useState(limit + 1);
 
   // API Connections
-  const apiURL = 'https://api.unsplash.com/search/collections?query';
-  const apiKey = 'U-rUir27xXKsXtMIFGZ0TcQ4DTFAsfUC14OdqJCArmw';
+  // const apiURL = 'https://api.unsplash.com/search/collections?query';
+  // const apiKey = 'U-rUir27xXKsXtMIFGZ0TcQ4DTFAsfUC14OdqJCArmw';
 
   useEffect(() => {
     setTimeout(() => {
-      fetch(`${apiURL}=${query}&per_page=${range}&client_id=${apiKey}`)
+      fetch(
+        `https://avl-frontend-exam.herokuapp.com/api/users/all?page=1&pageSize=${range}&keyword=${query}`
+      )
         .then((response) => response.json())
         .then((data) => {
           setLoading(false);
-          setArray(data.results);
-          console.log(data.results);
+          setArray(data.data);
+          console.log(data);
         });
     }, 1500);
   }, []);
 
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     fetch(`${apiURL}=${query}&per_page=${range}&client_id=${apiKey}`)
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         setLoading(false);
+  //         setArray(data.results);
+  //         console.log(data.results);
+  //       });
+  //   }, 1500);
+  // }, []);
+
   const [isVisible, setVisibility] = useState(false);
   const { objectRef } = useIntersectionObserver((entries) => {
     const [entry] = entries;
-    if (entry.isIntersecting && (limit < array.length)) {
+    if (entry.isIntersecting && limit < array.length) {
       setVisibility(entry.isIntersecting);
       setTimeout(() => {
-        setLimit(limit + 1)
-        setNewLimit(limit + 2)
+        setLimit(limit + 1);
+        setNewLimit(limit + 2);
         setNewArray([...newArray, array[limit]]);
         console.log(array[limit]);
       }, 500);
@@ -75,14 +97,14 @@ const SearchResult = (props) => {
               return (
                 <div className="col" key={index}>
                   <img
-                    src={data.cover_photo.urls.small}
+                    src={`https://picsum.photos/id/${index + 110}/300/200`}
                     className="img-fluid mb-2"
                     alt=""
                     style={{ height: '150px' }}
                   />
                   <h6 className="mb-0 text-capitalize">
-                    {data.alt_description} <br />
-                    <small className="text-muted">by {data.user.name}</small>
+                    {data.name} <br />
+                    <small className="text-muted">by {data.username}</small>
                   </h6>
                 </div>
               );

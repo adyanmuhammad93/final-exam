@@ -1,9 +1,13 @@
 import React from 'react';
 
-const Logo = ({ children }) => {
+const Logo = () => {
   return (
     <>
-      <div className="Logo">{children}</div>
+      <div className="Logo">
+        <div className="Logo__Text">
+          Logo
+        </div>
+      </div>
     </>
   );
 };

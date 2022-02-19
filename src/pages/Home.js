@@ -17,6 +17,8 @@ const Home = () => {
   return (
     <>
       <div className="Content">
+        
+
         {/* Page Title  */}
         <h2 className="w-100 p-3">Search</h2>
 

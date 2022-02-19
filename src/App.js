@@ -20,22 +20,22 @@ import Tags from './pages/Tags';
 import SearchResult from './pages/SearchResult';
 
 export default function App() {
-  // 
-  const [newArray, setNewArray] = useState([])
+  // // 
+  // const [newArray, setNewArray] = useState([])
 
-  // API Connections
-  const apiURL = 'https://api.unsplash.com/search/collections?query';
-  const apiKey = 'U-rUir27xXKsXtMIFGZ0TcQ4DTFAsfUC14OdqJCArmw';
+  // // API Connections
+  // const apiURL = 'https://api.unsplash.com/search/collections?query';
+  // const apiKey = 'U-rUir27xXKsXtMIFGZ0TcQ4DTFAsfUC14OdqJCArmw';
 
-  useEffect(() => {
-    setTimeout(() => {
-      fetch(`${apiURL}=snow&per_page=1&client_id=${apiKey}`)
-        .then((response) => response.json())
-        .then((data) => {
-          setNewArray(data.results)
-        })
-    }, 1500);
-  }, []);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     fetch(`${apiURL}=snow&per_page=1&client_id=${apiKey}`)
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         setNewArray(data.results)
+  //       })
+  //   }, 1500);
+  // }, []);
   
   return (
     <BrowserRouter>
@@ -45,17 +45,16 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/tags" element={<Tags />} />
-            <Route path="/search/:query/:range" element={<SearchResult newArray={newArray} />} />
+            <Route path="/search/:query/:range" element={<SearchResult />} />
+            {/* <Route path="/search/:query/:range" element={<SearchResult newArray={newArray} />} /> */}
           </Routes>
         </MainContent>
         <NavBar>
           <Nav />
         </NavBar>
-        <Follow>
-          <Routes>
-            <Route path="*" element={<Follow />} />
-          </Routes>
-        </Follow>
+        <Routes>
+          <Route path="/" element={<Follow />} />
+        </Routes>
       </Container>
     </BrowserRouter>
   );
