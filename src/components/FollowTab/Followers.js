@@ -62,7 +62,7 @@ const Followers = () => {
             >
               <div className="d-flex">
                 <img
-                  src={data.avater}
+                  src={`https://avatars.dicebear.com/api/initials/${data.username}.svg`}
                   alt=""
                   className="img-fluid me-3 rounded border border-white"
                   style={{ width: '40px', height: '40px' }}

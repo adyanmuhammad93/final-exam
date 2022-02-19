@@ -43,7 +43,7 @@ const Tags = () => {
                   <div className="Tags">
                     <img className="Tags__Image img-fluid" />
                     <h4 className="Tags__Badge">
-                      <span className="badge bg-primary text-truncate">
+                      <span className="badge text-truncate">
                         <span className="text-capitalize">{tag.name}</span>
                       </span>
                     </h4>

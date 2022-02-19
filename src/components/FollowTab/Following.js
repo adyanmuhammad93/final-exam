@@ -62,7 +62,7 @@ const Following = () => {
             >
               <div className="d-flex">
                 <img
-                  src={data.avater}
+                  src={`https://avatars.dicebear.com/api/initials/${data.username}.svg`}
                   alt=""
                   className="img-fluid me-3 rounded border border-white"
                   style={{ width: '40px', height: '40px' }}
@@ -104,10 +104,6 @@ const Following = () => {
           </div>
           <button className="btn btn-sm btn-outline active rounded-pill placeholder w-25"></button>
         </div>
-
-        // <div className="d-flex justify-content-center">
-        //   <span className="spinner-border"></span>
-        // </div>
       )}
 
       {loading &&

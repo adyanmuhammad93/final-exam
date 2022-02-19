@@ -346,6 +346,12 @@ input[type='text'] {
     padding: 10px;
     line-height: 0;
 
+    .badge {
+      border: 4px solid #ffffff;
+      box-sizing: border-box;
+      border-radius: 8px;
+    }
+
     span {
       max-width: calc(120px - 20px);
     }
