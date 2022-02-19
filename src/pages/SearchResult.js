@@ -88,12 +88,11 @@ const SearchResult = () => {
               );
             })}
 
+          <div className="col" ref={objectRef}></div>
+
           {isVisible && (
             <div className="col placeholder-glow">
-              <img
-                className="img-placeholder mb-2 placeholder w-100"
-                alt=""
-              />
+              <img className="img-placeholder mb-2 placeholder w-100" alt="" />
               <h6 className="mb-0 text-capitalize">
                 <span className="placeholder w-100"></span>
                 <br />
@@ -118,9 +117,6 @@ const SearchResult = () => {
                 </div>
               );
             })}
-        </div>
-        <div className="row">
-          <div className="col p-5" ref={objectRef}></div>
         </div>
       </div>
       <div className="MobileNav MobileNav--On-Top">
