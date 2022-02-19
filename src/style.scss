@@ -62,7 +62,7 @@ $breakpoints: (
 }
 
 .Logo {
-  // display: none;
+  display: none;
 
   grid-column: 1 / 2;
   grid-row: 1 / 2;
@@ -79,6 +79,39 @@ $breakpoints: (
 
     grid-column: 1 / 2;
     grid-row: 1 / 2;
+  }
+
+  &__Text {
+    background: linear-gradient(
+      90deg,
+      rgb(255, 92, 1) 0%,
+      rgba(255, 210, 95, 1) 100%
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+
+    font-style: normal;
+    font-weight: bold;
+    font-size: 13px;
+    line-height: 15px;
+    letter-spacing: -0.05em;
+
+    text-transform: uppercase;
+  }
+}
+
+.LogoHome {
+  width: 100%;
+  padding: 2rem 1rem;
+
+  background-color: #1b1b1b;
+
+  display: flex;
+  align-items: center;
+
+  @include respond-to(md) {
+    display: none;
   }
 
   &__Text {
@@ -126,6 +159,8 @@ $breakpoints: (
     padding: 0.5rem 0.5rem 2rem;
     width: 100%;
     max-width: 860px;
+
+    overflow-y: scroll;
 
     @include respond-to(md) {
       padding: calc(80px - 1.5rem) 0.5rem;
@@ -347,4 +382,16 @@ a {
     border-color: #fff;
     color: #fff;
   }
+}
+
+.img-placeholder {
+  min-height: 225px;
+
+  @include respond-to(md) {
+    min-height: 145px;
+  }
+}
+
+::-webkit-scrollbar {
+  display: none;
 }

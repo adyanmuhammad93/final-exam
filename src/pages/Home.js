@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 
 // Components
 import MobileNav from '../components/navs/MobileNav';
@@ -8,23 +8,27 @@ import TextField from '../components/forms/TextField';
 
 const Home = () => {
   const [range, setRange] = useState(15);
-  const [query, setQuery] = useState('')
-  const navigate = useNavigate()
+  const [query, setQuery] = useState('');
+  const navigate = useNavigate();
   function handleSubmit(e) {
-    e.preventDefault()
-    navigate(`/search/${query}/${range}`)
+    e.preventDefault();
+    navigate(`/search/${query}/${range}`);
   }
   return (
     <>
       <div className="Content">
-        
+        <div className="LogoHome">
+          <div className="LogoHome__Text">Logo</div>
+        </div>
 
         {/* Page Title  */}
         <h2 className="w-100 p-3">Search</h2>
 
         {/* Forms */}
-        <form onSubmit={handleSubmit} className="row flex-column g-4 w-100 h-100">
-
+        <form
+          onSubmit={handleSubmit}
+          className="row flex-column g-4 w-100 h-100"
+        >
           <div className="col-12">
             <TextField
               query={query}
@@ -45,7 +49,7 @@ const Home = () => {
           </div>
 
           <div className="col-12 flex-grow-1">
-            <ExamSlider 
+            <ExamSlider
               range={range}
               onChange={(e) => setRange(e.target.value)}
             />
@@ -56,11 +60,13 @@ const Home = () => {
           </div>
 
           <div className="col-12 col-md-4">
-            <button type="submit" className="btn btn-contain w-100 text-uppercase fw-bold">
+            <button
+              type="submit"
+              className="btn btn-contain w-100 text-uppercase fw-bold"
+            >
               Search
             </button>
           </div>
-
         </form>
       </div>
       <div className="MobileNav">

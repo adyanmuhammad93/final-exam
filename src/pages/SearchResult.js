@@ -22,10 +22,6 @@ const SearchResult = () => {
   const [limit, setLimit] = useState(0);
   const [newLimit, setNewLimit] = useState(limit + 1);
 
-  // API Connections
-  // const apiURL = 'https://api.unsplash.com/search/collections?query';
-  // const apiKey = 'U-rUir27xXKsXtMIFGZ0TcQ4DTFAsfUC14OdqJCArmw';
-
   useEffect(() => {
     setTimeout(() => {
       fetch(
@@ -39,18 +35,6 @@ const SearchResult = () => {
         });
     }, 1500);
   }, []);
-
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     fetch(`${apiURL}=${query}&per_page=${range}&client_id=${apiKey}`)
-  //       .then((response) => response.json())
-  //       .then((data) => {
-  //         setLoading(false);
-  //         setArray(data.results);
-  //         console.log(data.results);
-  //       });
-  //   }, 1500);
-  // }, []);
 
   const [isVisible, setVisibility] = useState(false);
   const { objectRef } = useIntersectionObserver((entries) => {
@@ -74,11 +58,6 @@ const SearchResult = () => {
 
   return (
     <>
-      {isVisible && (
-        <div className="position-fixed top-50">
-          <span className="spinner-border"></span>
-        </div>
-      )}
       <div className="Content">
         {/* Page Title */}
         <h2 className="w-100 p-3">
@@ -87,7 +66,7 @@ const SearchResult = () => {
               <i className="bi-arrow-left-short me-3"></i>
             </Link>
           </small>
-          Results for {query} in {range}
+          Results
         </h2>
 
         {/* Results List */}
@@ -97,10 +76,9 @@ const SearchResult = () => {
               return (
                 <div className="col" key={index}>
                   <img
-                    src={`https://picsum.photos/id/${index + 110}/300/200`}
-                    className="img-fluid mb-2"
+                    src={`https://picsum.photos/id/${index + 110}/400/225`}
+                    className="img-fluid ratio ratio-16x9 mb-2"
                     alt=""
-                    style={{ height: '150px' }}
                   />
                   <h6 className="mb-0 text-capitalize">
                     {data.name} <br />
@@ -109,15 +87,28 @@ const SearchResult = () => {
                 </div>
               );
             })}
+
+          {isVisible && (
+            <div className="col placeholder-glow">
+              <img
+                className="img-placeholder mb-2 placeholder w-100"
+                alt=""
+              />
+              <h6 className="mb-0 text-capitalize">
+                <span className="placeholder w-100"></span>
+                <br />
+                <span className="placeholder placeholder-sm w-50"></span>
+              </h6>
+            </div>
+          )}
+
           {loading &&
             numbers.map((index) => {
               return (
                 <div className="col placeholder-glow" key={index}>
                   <img
-                    // src={data.cover_photo.urls.small}
-                    className="img-fluid rounded mb-2 placeholder w-100"
+                    className="img-placeholder mb-2 placeholder w-100"
                     alt=""
-                    style={{ height: '150px' }}
                   />
                   <h6 className="mb-0 text-capitalize">
                     <span className="placeholder w-100"></span>
